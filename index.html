@@ -11,6 +11,7 @@
            url('OHR.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
     }
     @font-face {
       font-family: 'Mark Pro';
@@ -18,71 +19,104 @@
            url('MarkPro.woff') format('woff');
       font-weight: normal;
       font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --accent-red: #c1121f;
     }
 
     body {
       margin: 0;
-      padding: 0;
+      padding: 24px;
       background: #f4f1ec;
       font-family: 'Arial', sans-serif;
       color: #2b2b2b;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
+      justify-content: flex-start;
+      min-height: 100vh;
       text-align: center;
+      gap: 24px;
     }
     h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
+      font-size: 6em; /* 6 sizes bigger */
+      margin: 0.1em 0 0;
       font-family: 'OHR', sans-serif;
+      color: var(--accent-red);
+      letter-spacing: 0.06em;
+      text-transform: uppercase; /* ALL CAPS */
+      line-height: 1;
     }
     #countdown {
-      font-size: 2em;
-      margin-bottom: 1em;
-      color: red;
+      font-size: 8em; /* 6 sizes bigger than before (very large for display) */
+      margin: 0.1em 0 0.2em;
+      color: var(--accent-red);
       font-family: 'OHR', sans-serif;
+      line-height: 1.05;
+      word-spacing: 0.2em;
     }
+
+    /* Reasons caption */
+    #reasons-caption{
+      font-family: 'OHR', sans-serif;
+      font-size: 2em;
+      margin-top: 8px;
+    }
+
     #reason-box {
       background: #fff;
       border: 2px solid #ccc;
-      border-radius: 10px;
-      padding: 20px;
-      max-width: 600px;
-      font-size: 1.5em;
-      min-height: 120px;
-      color: black;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 900px;
+      font-size: 1.8em;
+      min-height: 140px;
+      color: #000;
       font-family: 'Mark Pro', sans-serif;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
     }
     #qr-code {
-      margin-top: 30px;
+      margin-top: 20px;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 1024px){
+      h1{ font-size: clamp(2.2em, 6vw, 4.5em); }
+      #countdown{ font-size: clamp(2.6em, 9vw, 6em); }
+      #reasons-caption{ font-size: clamp(1.2em, 3.5vw, 2em); }
+      #reason-box{ font-size: clamp(1.1em, 2.8vw, 1.6em); }
     }
   </style>
 </head>
 <body>
   <h1>Countdown to Rosh Hashanah</h1>
   <div id="countdown"></div>
+
+  <div id="reasons-caption">100 reasons to join us for Rosh Hashanah</div>
   <div id="reason-box"></div>
+
   <div id="qr-code">
     <img src="YOUR_QR_CODE_IMAGE_URL_HERE" alt="Register for Rosh Hashanah" width="200">
     <p>Scan to Register</p>
   </div>
 
   <script>
-    const targetDate = new Date("October 2, 2025 18:00:00").getTime();
+    // Target: September 22, 2025 at 7:00 PM (local time of the device)
+    const targetDate = new Date("September 22, 2025 19:00:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24)));
+      const hours = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      const minutes = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      const seconds = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
 
-      document.getElementById("countdown").innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      document.getElementById("countdown").textContent =
+        `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
     }
 
     setInterval(updateCountdown, 1000);
@@ -107,7 +141,7 @@
       reasonIndex = (reasonIndex + 1) % reasons.length;
     }
 
-    setInterval(updateReason, 10000);
+    setInterval(updateReason, 10000); // change every 10 seconds
     updateReason();
   </script>
 </body>
