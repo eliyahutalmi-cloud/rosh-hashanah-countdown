@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosh Hashanah Countdown</title>
+  <style>
+    @font-face {
+      font-family: 'OHR';
+      src: url('OHR.woff2') format('woff2'),
+           url('OHR.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Mark Pro';
+      src: url('MarkPro.woff2') format('woff2'),
+           url('MarkPro.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4f1ec;
+      font-family: 'Arial', sans-serif;
+      color: #2b2b2b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+      font-family: 'OHR', sans-serif;
+    }
+    #countdown {
+      font-size: 2em;
+      margin-bottom: 1em;
+      color: red;
+      font-family: 'OHR', sans-serif;
+    }
+    #reason-box {
+      background: #fff;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 600px;
+      font-size: 1.5em;
+      min-height: 120px;
+      color: black;
+      font-family: 'Mark Pro', sans-serif;
+    }
+    #qr-code {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Countdown to Rosh Hashanah</h1>
+  <div id="countdown"></div>
+  <div id="reason-box"></div>
+  <div id="qr-code">
+    <img src="YOUR_QR_CODE_IMAGE_URL_HERE" alt="Register for Rosh Hashanah" width="200">
+    <p>Scan to Register</p>
+  </div>
+
+  <script>
+    const targetDate = new Date("October 2, 2025 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const reasons = [
+      "Join the global wave of consciousness — inject Light into the new year.",
+      "Reconnect with your soul’s purpose and destiny.",
+      "Rosh Hashanah is not a holiday — it's a cosmic window for transformation.",
+      "Rav Berg taught: ‘The seed of the year is planted on Rosh Hashanah.’",
+      "Meet students and seekers from around the world — unity in diversity.",
+      "Michael Berg says: ‘Rosh Hashanah is the technology to reboot the soul.’",
+      "Overcome judgment, reset karma, and tap into a new timeline.",
+      "Feel the power of collective consciousness — you’re not alone.",
+      "Karen Berg reminded us: ‘There’s no greater joy than changing your movie.’",
+      "Your presence matters. The Light needs *you* in the equation."
+    ];
+
+    let reasonIndex = 0;
+    function updateReason() {
+      document.getElementById("reason-box").textContent = reasons[reasonIndex];
+      reasonIndex = (reasonIndex + 1) % reasons.length;
+    }
+
+    setInterval(updateReason, 10000);
+    updateReason();
+  </script>
+</body>
+</html>
