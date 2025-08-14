@@ -36,21 +36,21 @@
     }
 
     #stage {
-      width: 1400px;
-      height: 900px;
+      width: 1300px; /* reduced width to fit */
+      height: 800px; /* reduced height to fit */
       box-sizing: border-box;
-      padding: 28px 32px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 18px;
+      gap: 14px;
       transform-origin: top center;
-      text-align: center; /* Center align all text */
+      text-align: center;
     }
 
     h1 {
-      font-size: 120px;
+      font-size: 100px; /* slightly smaller */
       margin: 0.1em 0 0;
       font-family: 'OHR', sans-serif;
       color: var(--accent-red);
@@ -60,7 +60,7 @@
     }
 
     #countdown {
-      font-size: 90px;
+      font-size: 75px; /* slightly smaller */
       margin: 0.1em 0 0.2em;
       color: var(--accent-red);
       font-family: 'OHR', sans-serif;
@@ -70,27 +70,27 @@
 
     #reasons-caption{
       font-family: 'OHR', sans-serif;
-      font-size: 48px;
+      font-size: 40px; /* slightly smaller */
       margin-top: 8px;
     }
 
     #reason-box {
-      width: 1000px;
+      width: 900px; /* reduced width */
       background: #fff;
       border: 2px solid #ccc;
       border-radius: 12px;
-      padding: 28px;
-      font-size: 36px;
-      min-height: 160px;
+      padding: 20px;
+      font-size: 30px; /* slightly smaller */
+      min-height: 140px;
       color: #000;
       font-family: 'Mark Pro', sans-serif;
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      text-align: center; /* Center text inside reason box */
+      text-align: center;
     }
 
-    #qr-code { margin-top: 8px; text-align: center; }
-    #qr-code img { width: 220px; height: auto; }
-    #qr-code p { margin: 6px 0 0; font-family: 'Mark Pro', sans-serif; font-size: 20px; }
+    #qr-code { margin-top: 6px; text-align: center; }
+    #qr-code img { width: 180px; height: auto; }
+    #qr-code p { margin: 6px 0 0; font-family: 'Mark Pro', sans-serif; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -112,8 +112,8 @@
   <script>
     function scaleStage(){
       const stage = document.getElementById('stage');
-      const designW = 1400;
-      const designH = 900;
+      const designW = 1300;
+      const designH = 800;
       const padding = 16;
       const scaleX = (window.innerWidth - padding*2) / designW;
       const scaleY = (window.innerHeight - padding*2) / designH;
