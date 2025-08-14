@@ -24,7 +24,6 @@
 
     :root{ --accent-red: #c1121f; }
 
-    /* Make page non-scrollable and center content */
     html, body { height: 100%; }
     body {
       margin: 0;
@@ -33,25 +32,25 @@
       color: #2b2b2b;
       display: grid;
       place-items: center;
-      overflow: hidden; /* prevent scrolling */
+      overflow: hidden;
     }
 
-    /* Stage: designed at fixed logical size and scaled to fit viewport */
     #stage {
-      width: 1400px;   /* design width */
-      height: 900px;   /* design height */
+      width: 1400px;
+      height: 900px;
       box-sizing: border-box;
       padding: 28px 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 18px;
       transform-origin: top center;
+      text-align: center; /* Center align all text */
     }
 
     h1 {
-      font-size: 120px; /* large header */
+      font-size: 120px;
       margin: 0.1em 0 0;
       font-family: 'OHR', sans-serif;
       color: var(--accent-red);
@@ -61,7 +60,7 @@
     }
 
     #countdown {
-      font-size: 90px; /* slightly smaller than header */
+      font-size: 90px;
       margin: 0.1em 0 0.2em;
       color: var(--accent-red);
       font-family: 'OHR', sans-serif;
@@ -76,7 +75,7 @@
     }
 
     #reason-box {
-      width: 1000px; /* fixed logical width inside stage */
+      width: 1000px;
       background: #fff;
       border: 2px solid #ccc;
       border-radius: 12px;
@@ -86,9 +85,10 @@
       color: #000;
       font-family: 'Mark Pro', sans-serif;
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      text-align: center; /* Center text inside reason box */
     }
 
-    #qr-code { margin-top: 8px; }
+    #qr-code { margin-top: 8px; text-align: center; }
     #qr-code img { width: 220px; height: auto; }
     #qr-code p { margin: 6px 0 0; font-family: 'Mark Pro', sans-serif; font-size: 20px; }
   </style>
@@ -110,12 +110,11 @@
   </div>
 
   <script>
-    // Scale the stage to fit the viewport without scrolling
     function scaleStage(){
       const stage = document.getElementById('stage');
       const designW = 1400;
       const designH = 900;
-      const padding = 16; // small breathing room
+      const padding = 16;
       const scaleX = (window.innerWidth - padding*2) / designW;
       const scaleY = (window.innerHeight - padding*2) / designH;
       const scale = Math.min(scaleX, scaleY);
@@ -125,7 +124,6 @@
     window.addEventListener('orientationchange', scaleStage);
     scaleStage();
 
-    // Target: September 22, 2025 at 7:00 PM (local time of the device)
     const targetDate = new Date("September 22, 2025 19:00:00").getTime();
 
     function updateCountdown() {
