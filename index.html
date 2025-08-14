@@ -22,26 +22,36 @@
       font-display: swap;
     }
 
-    :root{
-      --accent-red: #c1121f;
-    }
+    :root{ --accent-red: #c1121f; }
 
+    /* Make page non-scrollable and center content */
+    html, body { height: 100%; }
     body {
       margin: 0;
-      padding: 24px;
       background: #f4f1ec;
       font-family: 'Arial', sans-serif;
       color: #2b2b2b;
+      display: grid;
+      place-items: center;
+      overflow: hidden; /* prevent scrolling */
+    }
+
+    /* Stage: designed at fixed logical size and scaled to fit viewport */
+    #stage {
+      width: 1400px;   /* design width */
+      height: 900px;   /* design height */
+      box-sizing: border-box;
+      padding: 28px 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      min-height: 100vh;
-      text-align: center;
-      gap: 24px;
+      gap: 18px;
+      transform-origin: top center;
     }
+
     h1 {
-      font-size: 8em; /* now larger than countdown */
+      font-size: 120px; /* large header */
       margin: 0.1em 0 0;
       font-family: 'OHR', sans-serif;
       color: var(--accent-red);
@@ -49,8 +59,9 @@
       text-transform: uppercase;
       line-height: 1;
     }
+
     #countdown {
-      font-size: 6em; /* smaller than header */
+      font-size: 90px; /* slightly smaller than header */
       margin: 0.1em 0 0.2em;
       color: var(--accent-red);
       font-family: 'OHR', sans-serif;
@@ -60,47 +71,61 @@
 
     #reasons-caption{
       font-family: 'OHR', sans-serif;
-      font-size: 2em;
+      font-size: 48px;
       margin-top: 8px;
     }
 
     #reason-box {
+      width: 1000px; /* fixed logical width inside stage */
       background: #fff;
       border: 2px solid #ccc;
       border-radius: 12px;
-      padding: 24px;
-      max-width: 900px;
-      font-size: 1.8em;
-      min-height: 140px;
+      padding: 28px;
+      font-size: 36px;
+      min-height: 160px;
       color: #000;
       font-family: 'Mark Pro', sans-serif;
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
     }
-    #qr-code {
-      margin-top: 20px;
-    }
 
-    @media (max-width: 1024px){
-      h1{ font-size: clamp(2.2em, 6vw, 4.5em); }
-      #countdown{ font-size: clamp(2.6em, 9vw, 6em); }
-      #reasons-caption{ font-size: clamp(1.2em, 3.5vw, 2em); }
-      #reason-box{ font-size: clamp(1.1em, 2.8vw, 1.6em); }
-    }
+    #qr-code { margin-top: 8px; }
+    #qr-code img { width: 220px; height: auto; }
+    #qr-code p { margin: 6px 0 0; font-family: 'Mark Pro', sans-serif; font-size: 20px; }
   </style>
 </head>
 <body>
-  <h1>Countdown to Rosh Hashanah</h1>
-  <div id="countdown"></div>
+  <div id="stage">
+    <h1>Countdown to Rosh Hashanah</h1>
+    <div id="countdown"></div>
 
-  <div id="reasons-caption">100 reasons to join us for Rosh Hashanah</div>
-  <div id="reason-box"></div>
+    <div id="reasons-caption">100 reasons to join us for Rosh Hashanah</div>
+    <div id="reason-box"></div>
 
-  <div id="qr-code">
-    <img src="rosh_hashanah_qr.png" alt="Register for Rosh Hashanah" width="200">
-    <p>Scan to Register</p>
+    <div id="qr-code">
+      <a href="https://highholidays.kabbalah.com/?_gl=1*2arb9w*_gcl_au*NjU4NzY0NzIwLjE3NDk1MTY5MjE.*_ga*MTk1NjQ5NTkzNi4xNzMxODg2NzQw*_ga_32M40KV2KH*czE3NTUxOTQyOTAkbzYyJGcwJHQxNzU1MTk0MjkwJGo2MCRsMCRoNjczOTMzOTUz" target="_blank" rel="noopener noreferrer">
+        <img src="rosh_hashanah_qr.png" alt="Register for Rosh Hashanah" />
+      </a>
+      <p>Scan or click to register</p>
+    </div>
   </div>
 
   <script>
+    // Scale the stage to fit the viewport without scrolling
+    function scaleStage(){
+      const stage = document.getElementById('stage');
+      const designW = 1400;
+      const designH = 900;
+      const padding = 16; // small breathing room
+      const scaleX = (window.innerWidth - padding*2) / designW;
+      const scaleY = (window.innerHeight - padding*2) / designH;
+      const scale = Math.min(scaleX, scaleY);
+      stage.style.transform = `scale(${Math.max(0.1, scale)})`;
+    }
+    window.addEventListener('resize', scaleStage);
+    window.addEventListener('orientationchange', scaleStage);
+    scaleStage();
+
+    // Target: September 22, 2025 at 7:00 PM (local time of the device)
     const targetDate = new Date("September 22, 2025 19:00:00").getTime();
 
     function updateCountdown() {
