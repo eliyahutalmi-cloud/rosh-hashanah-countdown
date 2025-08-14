@@ -41,16 +41,16 @@
       gap: 24px;
     }
     h1 {
-      font-size: 6em; /* 6 sizes bigger */
+      font-size: 8em; /* now larger than countdown */
       margin: 0.1em 0 0;
       font-family: 'OHR', sans-serif;
       color: var(--accent-red);
       letter-spacing: 0.06em;
-      text-transform: uppercase; /* ALL CAPS */
+      text-transform: uppercase;
       line-height: 1;
     }
     #countdown {
-      font-size: 8em; /* 6 sizes bigger than before (very large for display) */
+      font-size: 6em; /* smaller than header */
       margin: 0.1em 0 0.2em;
       color: var(--accent-red);
       font-family: 'OHR', sans-serif;
@@ -58,7 +58,6 @@
       word-spacing: 0.2em;
     }
 
-    /* Reasons caption */
     #reasons-caption{
       font-family: 'OHR', sans-serif;
       font-size: 2em;
@@ -81,7 +80,6 @@
       margin-top: 20px;
     }
 
-    /* Responsive adjustments for smaller screens */
     @media (max-width: 1024px){
       h1{ font-size: clamp(2.2em, 6vw, 4.5em); }
       #countdown{ font-size: clamp(2.6em, 9vw, 6em); }
@@ -98,12 +96,11 @@
   <div id="reason-box"></div>
 
   <div id="qr-code">
-    <img src="YOUR_QR_CODE_IMAGE_URL_HERE" alt="Register for Rosh Hashanah" width="200">
+    <img src="rosh_hashanah_qr.png" alt="Register for Rosh Hashanah" width="200">
     <p>Scan to Register</p>
   </div>
 
   <script>
-    // Target: September 22, 2025 at 7:00 PM (local time of the device)
     const targetDate = new Date("September 22, 2025 19:00:00").getTime();
 
     function updateCountdown() {
@@ -141,8 +138,9 @@
       reasonIndex = (reasonIndex + 1) % reasons.length;
     }
 
-    setInterval(updateReason, 10000); // change every 10 seconds
+    setInterval(updateReason, 10000);
     updateReason();
   </script>
 </body>
 </html>
+
